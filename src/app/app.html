@@ -1,5 +1,34 @@
-<h1>Willkommen bei DeliFHery</h1>
+<!-- Navbar -->
+<div class="ui inverted menu">
+    <div class="ui container">
+        <!-- Logo oder Titel -->
+        <a class="header item" href="/">
+            <h1 class="ui container">DeliFHery</h1>
+        </a>
 
-    <button routerLink="/contacts">Contacts</button>
+        <!-- Navigationslinks -->
+        <div class="right menu">
+            <a class="ui item" routerLink="/contacts" routerLinkActive="active">
+                <i class="address book icon"></i>
+                Contacts
+            </a>
+            <a class="ui item" routerLink="/shipment" routerLinkActive="active">
+                <i class="shipping fast icon"></i>
+                Shipment
+            </a>
+            <a class="ui item" routerLink="/shipment" routerLinkActive="active">
+                <i class="dollar icon"></i>
+                Price
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Zusätzlicher Inhalt -->
+<div class="ui container" style="margin-top: 2rem;">
+    <!-- Beispielinhalte -->
+    <h2 class="ui header">Willkommen bei DeliFHery</h2>
+    <p>Verwalte deine Kontakte und sende Pakete auf einfache Weise.</p>
+</div>
 
 <router-outlet><router-outlet/>

@@ -1,0 +1,13 @@
+<div class="ui container" style="margin-top: 2rem; max-width: 800px;">
+  <h2>Barcode für Sendung #{{ shipmentId }}</h2>
+
+  @if(barcodeUrl){
+  <div>
+    <img [src]="barcodeUrl" alt="Shipment Barcode" style='border:1px solid #000000'/>
+  </div>
+
+  <ng-template #loading>
+    <p>Barcode wird geladen...</p>
+  </ng-template>
+}
+</div>

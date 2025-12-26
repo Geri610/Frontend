@@ -34,7 +34,7 @@ export class ContactService {
   // PUT api/contact/{contactID}
   update(contactId: number, contact: Contact): Observable<Contact | null> {
     return this.http
-      .put<Contact>(`${this.baseUrl}/${contactId}`, contact)
+      .put<Contact>(`${this.baseUrl}`, contact)
       .pipe(catchError(this.errorHandler));
   }
 

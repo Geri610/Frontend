@@ -1,5 +1,95 @@
-    <p>contacts works!</p>
+<div class="ui container" style="margin-top: 2rem; max-width: 800px;">
 
-    @for (c of contacts; track c.data){
-        <div>{{c.data}}</div>
+    <!-- Titel -->
+    <h2 class="ui header">
+        <i class="address book icon"></i>
+        <div class="content">
+            Kontakte verwalten
+            <div class="sub header">Verwalten Sie Ihre Kontakte</div>
+        </div>
+    </h2>
+
+<button class="ui green button" (click)="openNewModal()">
+<i class="add icon"></i> Neuen Kontakt anlegen
+</button>
+    @for (c of contacts; track c.id){
+        <div class="ui message">
+            @if (c.cType === ContactType.Email) {
+                <i class="envelope icon"></i>
+            }
+            @if (c.cType === ContactType.Phone) {
+                <i class="phone icon"></i>
+            }
+            <span>{{c.data}}  </span>
+            <i class="redo icon" (click)="openEditModal(c)"></i>
+            <i class="delete icon" (click) = "deleteContact(c.id)"></i>
+        </div>
     }
+
+<!-- Fomantic UI Modal -->
+@if(editingContact){
+<div class="ui modal" [class.active]="editingContact" [class.visible]="editingContact">
+  <i class="close icon" (click)="closeEditModal()"></i>
+  <div class="header">
+    Kontakt bearbeiten
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Typ</label>
+        <select [(ngModel)]="editingContact.cType" class="ui dropdown">
+          <option [value]="ContactType.Email">Email</option>
+          <option [value]="ContactType.Phone">Phone</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Data</label>
+        <input type="text" [(ngModel)]="editingContact.data">
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button" (click)="closeEditModal()">Abbrechen</div>
+    <div class="ui primary button" (click)="updateContact()">Speichern</div>
+  </div>
+</div>
+}
+
+
+<!-- Fomantic UI Modal -->
+@if(newContact){
+<div class="ui modal" [class.active]="newContact" [class.visible]="newContact">
+  <i class="close icon" (click)="closeNewModal()"></i>
+  <div class="header">
+    Kontakt erstellen
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Typ</label>
+        <select [(ngModel)]="newContact.cType" class="ui dropdown">
+          <option [ngValue]="ContactType.Email">Email</option>
+          <option [ngValue]="ContactType.Phone">Phone</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Data</label>
+        <input type="text" [(ngModel)]="newContact.data">
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button" (click)="closeNewModal()">Abbrechen</div>
+    <div class="ui primary button" (click)="AddContact()">Speichern</div>
+  </div>
+</div>
+}
+</div>
+
+<style>
+    .ui.modal {
+    width: 100%; /* Modal nimmt die volle Breite seines Containers ein */
+    max-width: 800px; /* Setze die maximale Breite auf die Container-Breite */
+    margin: auto; /* Zentriere das Modal horizontal */
+}
+</style>
