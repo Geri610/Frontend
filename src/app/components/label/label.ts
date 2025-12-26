@@ -12,7 +12,8 @@ export class Label {
 
   barcodeUrl: string | null = null;
   constructor(private shipmentService: ShipmentService){}
-  shipmentId:number=4163;
+  shipmentId:number=0;
+  trackingId:string="";
 
 loadShipmentData(): void {
     const pendingShipment = localStorage.getItem('pendingShipment');
@@ -22,7 +23,10 @@ loadShipmentData(): void {
       // Daten aus dem localStorage extrahieren
       if(shipmentData.Id !== null)
         this.shipmentId = shipmentData.Id;
+      if(shipmentData.trackingId !== null)
+        this.trackingId = shipmentData.trackingId;
       console.log('Shipment ID:', this.shipmentId);
+      console.log('Tracking ID:', this.trackingId);
 
     } else {
       console.log('No pending shipment data found');

@@ -1,0 +1,74 @@
+<div class="ui centered container" style="padding-top: 2rem; max-width: 520px;">
+
+    <form class="ui form" (ngSubmit)="checkStatus()">
+    <div class="field">
+        <label>Trackingnummer</label>
+        <input type="text" [(ngModel)]="trackedShipment.trackingId" name="statusTrackingNumber">
+    </div>
+
+    <div class="field">
+        <label>PLZ</label>
+        <input type="text" name="notificationZip" [(ngModel)]="trackedShipment.receiverAddress.zip" #zipModel="ngModel"
+            required pattern="^[0-9]{4}$" inputmode="numeric" maxlength="4" placeholder="4020" />
+    </div>
+
+    <button class="ui primary button" type="submit">
+        <i class="search icon"></i>
+        Status Check
+    </button>
+</form>
+
+@if(errorMessage){
+<div class="ui red message" style="margin-top: 1rem;">
+    {{ errorMessage }}
+</div>
+}
+
+@if(result){
+<div class="ui segment">
+    <div class="ui segment" name="statusSender">
+        <h3>Absender:</h3>
+        <p>
+            {{ result.senderAddress.name }}<br>
+            {{ result.senderAddress.street }} {{ result.senderAddress.houseNumber }}<br>
+            {{ result.senderAddress.zip }} {{ result.senderAddress.city }}
+        </p>
+    </div>
+
+    <div class="ui segment" name="statusReceiver">
+        <h3>Empfänger:</h3>
+        <p>
+            {{ result.receiverAddress.name }}<br>
+            {{ result.receiverAddress.street }} {{ result.receiverAddress.houseNumber }}<br>
+            {{ result.receiverAddress.zip }} {{ result.receiverAddress.city }}
+        </p>
+
+    </div>
+
+
+    <div name="statusHistory">
+        <h3>Status History:</h3>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Status</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(entry of history; track entry.timestamp) {
+                <tr>
+                    <td>{{ entry.timestamp }}</td>
+                     <td>{{ [entry.status] }}</td>
+                    <td>{{ entry.info }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+
+</div>
