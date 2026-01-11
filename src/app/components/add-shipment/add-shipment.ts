@@ -28,7 +28,7 @@ export class AddShipment {
     if (!this.sender.addressIsComplete() ||
       !this.receiver.addressIsComplete() ||
       !this.parcel.parcelIsComplete()) {
-      this.errorMessage = "Bitte alle Felder richtig ausfüllen";
+      this.errorMessage = "Alle Felder ausfüllen";
       return;
     }
 

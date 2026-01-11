@@ -20,6 +20,17 @@ Login und Logout bzw. Weiterleitung auf den Keycloak werden von app.ts bzw. app.
 Ich habe ChatGPT (Gratisversion) genutzt; und zwar hauptsächlich zum Debuggen und zum Erklären von Konzepten. In Bezug auf den Code habe ich keinen Code ausschließlich mit KI erstellt, aber auch keine Files völlig ohne KI-Einsatz. Es war mehr eine Art "Zusammenarbeit"; bei Fehlern habe ich die KI um Hilfe gefragt bzw. mir Verbesserungsmöglichkeiten liefern lassen. So ist am Ende der fertige Code entstanden.
 
 # Fragen
+#### Was ist zu tun, wenn sich URLs ändern? Wie invasiv ist der Eingriff in Ihre Anwendung, um diese zu ändern? 
+Die URLs sind zentral im Angular Router definiert, sodass Änderungen ausschließlich in der Routing-Konfiguration erfolgen. Die Komponenten bleiben auch bei einer URL-Änderung unverändert.
+
+#### Wie stellen Sie sicher, dass bestimmte Seiten nur nach einem Login zugreifbar sind?
+Authorization Guard, der im Routing als Route Guard verwendet wird.
+
+#### Wie stellen Sie eine korrekte Dateneingabe sicher?
+Es werden entsprechende Validatoren, Patterns etc. eingesetzt.
+
+#### Was passiert, wenn Aufrufe an das Backend Fehler produzieren?
+Errors aus dem Backend werden abgefangen und in Fehlermeldungen im Frontend umgewandelt.
 
 # Durchgehendes Testbeispiel und Navigationsweg:
 
