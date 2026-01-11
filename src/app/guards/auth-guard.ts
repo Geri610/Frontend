@@ -5,14 +5,21 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
-  constructor(private oauth: OAuthService, private router: Router) { }
+  constructor(
+    private oauth: OAuthService,
+    private router: Router
+  ) {}
 
-  canActivate(): Promise<boolean> {
-    return this.oauth.loadDiscoveryDocumentAndTryLogin().then(() => {
-      if (this.oauth.hasValidAccessToken() && this.oauth.hasValidIdToken()) {
-        return true;
-      }
-      return false;
-    });
+  canActivate(): boolean {
+    if (
+      this.oauth.hasValidAccessToken() &&
+      this.oauth.hasValidIdToken()
+    ) {
+      return true;
+    }
+
+    // optional: Redirect auf Login
+    this.router.navigate(['/login']);
+    return false;
   }
 }
