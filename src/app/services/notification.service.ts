@@ -16,8 +16,6 @@ export class NotificationService {
     return of(null);
   }
 
-  // POST /Notification
-
   public AktivateNotification(trackingId: string, zip: number) {
     return this.http.post(
       `${this.baseUrl}`,
@@ -25,7 +23,6 @@ export class NotificationService {
     );
   }
 
-  // DELETE /Notification
   public DeaktivateNotification(trackingId: string, zip: number) {
     return this.http.delete(
       `${this.baseUrl}`,

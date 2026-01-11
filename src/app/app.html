@@ -1,42 +1,47 @@
-<!-- Navbar -->
 <div class="ui inverted menu">
-    <div class="ui container">
-        <!-- Logo oder Titel -->
-        <a class="header item" href="/">
-            <h1 class="ui container">DeliFHery</h1>
+  <div class="ui container">
+
+    <a class="header item" routerLink="/">
+      <i class="truck icon"></i>
+      DeliFHery
+    </a>
+
+    <div class="right menu">
+
+
+        <a class="item" routerLink="/contacts" routerLinkActive="active">
+          <i class="address book icon"></i> Contacts
         </a>
-    <br>
-        <!-- Navigationslinks -->
-        <div class="right menu">
-            <a class="ui item" routerLink="/contacts" routerLinkActive="active">
-                <i class="address book icon"></i>
-                Contacts
-            </a>
-            <a class="ui item" routerLink="/shipment" routerLinkActive="active">
-                <i class="shipping fast icon"></i>
-                Shipment
-            </a>
-            <a class="ui item" routerLink="/price" routerLinkActive="active">
-                <i class="dollar icon"></i>
-                Price
-            </a>
-            <a class="ui item" routerLink="/tracking" routerLinkActive="active">
-                <i class="coffee icon"></i>
-                Tracking
-            </a>
-            <a class="ui item" routerLink="/notification" routerLinkActive="active">
-                <i class="letter icon"></i>
-                Notification
-            </a>
-        </div>
+        <a class="item" routerLink="/shipment" routerLinkActive="active">
+          <i class="shipping fast icon"></i> Shipment
+        </a>
+        <a class="item" routerLink="/price" routerLinkActive="active">
+          <i class="dollar icon"></i> Price
+        </a>
+        <a class="item" routerLink="/tracking" routerLinkActive="active">
+          <i class="coffee icon"></i> Tracking
+        </a>
+        <a class="item" routerLink="/notification" routerLinkActive="active">
+          <i class="bell icon"></i> Notification
+        </a>
+        <a class="item" routerLink="/Statistics" routerLinkActive="active">
+          <i class="book icon"></i> Statistics
+        </a>
+        <a class="item">
+          <i class="lock icon"></i> Logout
+        </a>
+
+        <a class="item" routerLink="/login">
+          <i class="lock icon"></i> Login
+        </a>
+
+
     </div>
+
+  </div>
 </div>
 
-<!-- Zusätzlicher Inhalt -->
-<div class="ui container" style="margin-top: 2rem;">
-    <!-- Beispielinhalte -->
-    <h2 class="ui header">Willkommen bei DeliFHery</h2>
-    <p>Verwalte deine Kontakte und sende Pakete auf einfache Weise.</p>
+<!-- CONTENT -->
+<div class="ui main container" style="margin-top: 2rem;">
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet><router-outlet/>

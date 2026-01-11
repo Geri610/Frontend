@@ -5,6 +5,7 @@ import { Label } from './components/label/label';
 import { Price } from './components/price/price';
 import { Tracking } from './components/tracking/tracking';
 import { Notification } from './components/notification/notification';
+import { StatisticsComponent } from './stats/stats';
 
 export const routes: Routes = [
     { path: 'contacts', component: Contacts},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'label', component: Label},
     { path: 'price', component: Price},
     { path: 'tracking', component: Tracking},
-    { path: 'notification', component: Notification}
+    { path: 'notification', component: Notification},
+    { path: 'Statistics', component: StatisticsComponent}
 ];

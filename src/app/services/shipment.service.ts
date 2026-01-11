@@ -34,7 +34,7 @@ export class ShipmentService {
 
   getLabelForShipment(shipmentId:number): Observable<Blob> {
     const url = `${this.baseUrl}/${shipmentId}/barcode`;
-    return this.http.get(url, { responseType: 'blob' }); // Antwort als Blob (für Bilddatei)
+    return this.http.get(url, { responseType: 'blob' }); // Antwort als Blob für Bilddatei
   }
 
     getPrice(newShipment: Shipment): Observable<number> {
