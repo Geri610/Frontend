@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
       if (this.oauth.hasValidAccessToken() && this.oauth.hasValidIdToken()) {
         return true;
       }
-
       return false;
     });
   }

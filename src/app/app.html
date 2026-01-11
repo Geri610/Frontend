@@ -6,6 +6,7 @@
       DeliFHery
     </a>
 
+    <!-- Hauptmenü -->
     <div class="right menu">
         @if (auth.isLoggedIn()) {
         <a class="item" routerLink="/contacts" routerLinkActive="active">
@@ -39,7 +40,7 @@
   </div>
 </div>
 
-<!-- CONTENT -->
+<!-- Router Outlet -->
 <div class="ui main container" style="margin-top: 2rem;">
   <router-outlet></router-outlet>
 </div>

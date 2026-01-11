@@ -19,7 +19,6 @@ export class bearer_Interceptor implements HttpInterceptor {
           }
         });
       }
-  
       return next.handle(req);
     }
 }

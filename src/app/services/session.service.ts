@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SessionService {
-  customerId: number = 0;
+  public customerId: String = "";
 }

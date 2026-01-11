@@ -3,12 +3,12 @@
     <form class="ui form" (ngSubmit)="checkStatus()">
     <div class="field">
         <label>Trackingnummer</label>
-        <input type="text" [(ngModel)]="trackedShipment.trackingId" name="statusTrackingNumber">
+        <input type="text" [(ngModel)]="targetedShipment.trackingId" name="statusTrackingNumber">
     </div>
 
     <div class="field">
         <label>PLZ</label>
-        <input type="text" name="notificationZip" [(ngModel)]="trackedShipment.receiverAddress.zip" #zipModel="ngModel"
+        <input type="text" name="notificationZip" [(ngModel)]="targetedShipment.receiverAddress.zip" #zipModel="ngModel"
             required pattern="^[0-9]{4}$" inputmode="numeric" maxlength="4" placeholder="4020" />
     </div>
 
@@ -70,5 +70,4 @@
     </div>
 </div>
 }
-
 </div>

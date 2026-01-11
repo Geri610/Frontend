@@ -1,7 +1,7 @@
 <div class="ui centered container" style="padding-top: 2rem; max-width: 520px;">
     <form class="ui form">
         <div class="field">
-            <label>Trackingnummer</label>
+            <label>Tracking-Code</label>
             <input type="text" [(ngModel)]="trackedShipment.trackingId" name="notificationTrackingNumber">
         </div>
 
@@ -11,14 +11,14 @@
                 required pattern="^[0-9]{4}$" inputmode="numeric" maxlength="4" placeholder="4020" />
         </div>
 
-        <button class="ui primary button" type="button" (click)="trackingActivate()">
+        <button class="ui primary button" type="button" (click)="activateTracking()">
             <i class="bell icon"></i>
-            Benachrichtigung aktivieren
+            Start Notifications  
         </button>
 
-        <button class="ui red button" type="button" (click)="trackingDeactivate()">
+        <button class="ui red button" type="button" (click)="cancelTracking()">
             <i class="bell slash icon"></i>
-            Benachrichtigung deaktivieren
+            Stop Notifications 
         </button>
     </form>
 

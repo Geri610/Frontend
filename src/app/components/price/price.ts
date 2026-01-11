@@ -19,32 +19,29 @@ export class Price {
   newShipment: Shipment | null = null;
   sender: Address = new Address();
   receiver: Address = new Address();
-  parcel: Parcel = new Parcel();
+  parcel: Parcel = new Parcel(10,10,10,10);
 
   constructor(private shipmentService: ShipmentService) { }
 
   submitShipment() {
     this.errorMessage = null;
 
-    // Eingabevalidierung
     if (!this.sender.addressIsComplete() ||
       !this.receiver.addressIsComplete() ||
       !this.parcel.parcelIsComplete()) {
-      this.errorMessage = "Bitte alle Felder richtig ausfüllen";
+      this.errorMessage = "Eingabe unvollständig";
       return;
     }
 
-    // Request-Body für Backend 
     const body = {
       senderAddress: this.sender,
       receiverAddress: this.receiver,
       parcel: this.parcel,
     };
 
-    // POST an Backend
-    this.shipmentService.getPrice(body as any).subscribe(result => {
+    this.shipmentService.getPriceForShipment(body as any).subscribe(result => {
       if (result === null) {
-        this.errorMessage = "Preisberechnung fehlgeschlagen.";
+        this.errorMessage = "Berechung gescheitert";
         return;
       }
       console.log("result:", result);
@@ -55,7 +52,7 @@ export class Price {
   resetForm() {
       this.sender = new Address();
       this.receiver = new Address();
-      this.parcel = new Parcel();
+      this.parcel = new Parcel(10,10,10,10);
       this.errorMessage = null;
       this.newShipment = null;
       this.price = null;

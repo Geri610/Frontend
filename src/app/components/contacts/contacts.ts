@@ -25,31 +25,29 @@ export class Contacts {
 
   AddContact(){
     if(this.newContact !== null){
-      this.contactService.create(this.newContact).subscribe(res=> {
+      this.contactService.createContact(this.newContact).subscribe(res=> {
         this.GetAllContacts()
         this.closeNewModal();
       });
     }
   }
 
-    GetAllContacts(){
-      console.log("get all contacts called");
-          this.contactService.getAllForCustomer().subscribe(res =>{ 
+  GetAllContacts(){
+        this.contactService.getAllContactsForCustomer().subscribe(res =>{ 
             if (res !== null)
               this.contacts = res;});
-      }
+    }
     
-    deleteContact(contactId:number){
-      console.log("delete clicked ", contactId);
-      this.contactService.delete(contactId).subscribe(res=>
+  deleteContact(contactId:number){
+      this.contactService.deleteContact(contactId).subscribe(res=>
         this.GetAllContacts());
     }
     
   openEditModal(contact: Contact) {
-    this.editingContact = {...contact}; // Kopie bearbeiten
+    this.editingContact = {...contact};
   }
 
-    openNewModal() {
+  openNewModal() {
     this.newContact = new Contact();
   }
 
@@ -57,17 +55,17 @@ export class Contacts {
     this.editingContact = null;
   }
 
-    closeNewModal() {
+  closeNewModal() {
     this.newContact = null;
   }
 
   updateContact() {
     if (this.editingContact) {
-      this.contactService.update(this.editingContact.id, this.editingContact).subscribe({
+      this.contactService.updateContact(this.editingContact.id, this.editingContact).subscribe({
         next: () => {
           this.GetAllContacts();
           this.closeEditModal();
-          console.log("update done");
+          console.log("Kontakt aktualisiert");
         },
         error: err => console.error(err)
       });

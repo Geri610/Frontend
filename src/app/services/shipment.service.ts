@@ -13,21 +13,21 @@ export class ShipmentService {
   private baseUrl = `${environment.api}/shipment`;
 
   private errorHandler(error: any): Observable<any> {
-    console.error('ShipmentService API-Fehler:', error);
+    console.error('Shipment-Service API Error:', error);
     return of(null);
   }
 
-  getByTrackingIdAndZip(trackingId: string, zip: number): Observable<Shipment> {
+  getShipmentByTrackingIdAndZip(trackingId: string, zip: number): Observable<Shipment> {
     return this.http.get<Shipment>(`${this.baseUrl}/${trackingId}/${zip}`)
       .pipe(catchError(this.errorHandler));
   }
 
-  create(newShipment: any): Observable<Shipment> {
+  createShipment(newShipment: any): Observable<Shipment> {
     return this.http.post<Shipment>(this.baseUrl, newShipment)
       .pipe(catchError(this.errorHandler));
   }
 
-  getAllByCustomer(): Observable<Shipment[]> {
+  getAllShipmentsForCustomer(): Observable<Shipment[]> {
     return this.http.get<Shipment[]>(`${this.baseUrl}`)
       .pipe(catchError(this.errorHandler));
   }
@@ -37,7 +37,7 @@ export class ShipmentService {
     return this.http.get(url, { responseType: 'blob' }); // Antwort als Blob für Bilddatei
   }
 
-    getPrice(newShipment: Shipment): Observable<number> {
+  getPriceForShipment(newShipment: Shipment): Observable<number> {
     return this.http
       .post<number>(`${this.baseUrl}/price/`, newShipment)
       .pipe(catchError(this.errorHandler));

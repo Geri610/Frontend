@@ -4,7 +4,6 @@
     <i class="dollar icon"></i>
     <div class="content">
       Preis berechnen
-      <div class="sub header">Versandinformationen ausfüllen</div>
     </div>
   </div>
 
@@ -13,7 +12,7 @@
 
       <!-- Absender -->
       <div class="ui secondary segment">
-        <h4 class="ui header">Senderdaten</h4>
+        <h4 class="ui header">Absender</h4>
 
         <div class="field">
           <label>Name</label>
@@ -55,7 +54,7 @@
 
       <!-- Empfänger -->
       <div class="ui secondary segment">
-        <h4 class="ui header">Empfängerdaten</h4>
+        <h4 class="ui header">Empfänger</h4>
 
         <div class="field">
           <label>Name</label>
@@ -92,13 +91,11 @@
             <input [(ngModel)]="receiver.country" name="receiverCountry" placeholder="Austria" required>
           </div>
         </div>
-
-
       </div>
 
       <!-- Paket -->
       <div class="ui secondary segment">
-        <h4 class="ui header">Paketdetails</h4>
+        <h4 class="ui header">Paket</h4>
 
         <div class="four fields">
           <div class="field">
@@ -129,7 +126,7 @@
       </button>
         <button type="button" class="ui fluid delete button" (click)="resetForm()">
         <i class="undo icon"></i>
-        Zurücksetzen
+        Reset
         </button>
     </form>
   </div>

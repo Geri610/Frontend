@@ -1,8 +1,6 @@
 import { Address } from "./address";
-import { Customer } from "./customer";
 import { Parcel } from "./parcel";
 import { ShipmentStatusEntry } from "./shipment-status-entry";
-import { Status } from "./status";
 
 export class Shipment {
     constructor(
@@ -16,7 +14,6 @@ export class Shipment {
         public history: ShipmentStatusEntry[] = [],
         public customerId?: string,
         public url?: string,
-
     ) { }
 
     get senderFullAddress(): string {

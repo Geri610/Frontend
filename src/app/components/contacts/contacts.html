@@ -26,7 +26,6 @@
         </div>
     }
 
-<!-- Fomantic UI Modal -->
 @if(editingContact){
 <div class="ui modal" [class.active]="editingContact" [class.visible]="editingContact">
   <i class="close icon" (click)="closeEditModal()"></i>
@@ -55,8 +54,6 @@
 </div>
 }
 
-
-<!-- Fomantic UI Modal -->
 @if(newContact){
 <div class="ui modal" [class.active]="newContact" [class.visible]="newContact">
   <i class="close icon" (click)="closeNewModal()"></i>
@@ -88,8 +85,8 @@
 
 <style>
     .ui.modal {
-    width: 100%; /* Modal nimmt die volle Breite seines Containers ein */
-    max-width: 800px; /* Setze die maximale Breite auf die Container-Breite */
-    margin: auto; /* Zentriere das Modal horizontal */
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
 }
 </style>

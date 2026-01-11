@@ -11,42 +11,42 @@ export class ContactService {
   private readonly http = inject(HttpClient);
 
   private errorHandler(error: any): Observable<any> {
-    console.error('ContactService API-Fehler:', error);
+    console.error('Contact-Service API-Error:', error);
     return of(null);
   }
 
   private baseUrl = `${environment.api}/contact`;
 
   // GET api/contact/{contactID}
-  getById(contactId: number): Observable<Contact | null> {
+  getContactById(contactId: number): Observable<Contact | null> {
     return this.http
       .get<Contact>(`${this.baseUrl}/${contactId}`)
       .pipe(catchError(this.errorHandler));
   }
 
   // POST api/contact
-  create(contact: Contact): Observable<Contact | null> {
+  createContact(contact: Contact): Observable<Contact | null> {
     return this.http
       .post<Contact>(this.baseUrl, contact)
       .pipe(catchError(this.errorHandler));
   }
 
   // PUT api/contact/{contactID}
-  update(contactId: number, contact: Contact): Observable<Contact | null> {
+  updateContact(contactId: number, contact: Contact): Observable<Contact | null> {
     return this.http
       .put<Contact>(`${this.baseUrl}`, contact)
       .pipe(catchError(this.errorHandler));
   }
 
   // DELETE api/contact/{contactID}
-  delete(contactId: number): Observable<boolean> {
+  deleteContact(contactId: number): Observable<boolean> {
     return this.http
       .delete<boolean>(`${this.baseUrl}/${contactId}`)
       .pipe(catchError(this.errorHandler));
   }
 
   // GET api/customer/contact
-  getAllForCustomer(): Observable<Contact[] | null> {
+  getAllContactsForCustomer(): Observable<Contact[] | null> {
     return this.http
       .get<Contact[]>(`${environment.api}/customer/contact`)
       .pipe(catchError(this.errorHandler));

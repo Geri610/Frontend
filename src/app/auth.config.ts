@@ -10,11 +10,11 @@ export const authConfig: AuthConfig = {
 
     clientId: 'wea5-demo',
     redirectUri: window.location.origin,
-    silentRefreshRedirectUri: window.location.origin, //+ '/silent-refresh.html'
+    silentRefreshRedirectUri: window.location.origin,
     scope: 'profile email',
-    silentRefreshTimeout: 5000, // For faster testing
-    timeoutFactor: 0.25, // For faster testing
+    silentRefreshTimeout: 5000,
+    timeoutFactor: 0.25,
     sessionChecksEnabled: true,
-    showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
-    clearHashAfterLogin: false, // https://github.com/manfredsteyer/angularoauth2-oidc/issues/45
+    showDebugInformation: true,
+    clearHashAfterLogin: false,
 };

@@ -9,7 +9,7 @@
   </div>
 
   <div class="ui attached segment">
-    <form class="ui form" (ngSubmit)="submitShipment()">
+    <form class="ui form" (ngSubmit)="addShipment()">
 
       <!-- Absender -->
       <div class="ui secondary segment">
@@ -142,7 +142,7 @@
 
   @if(newShipment){
     <div class="ui positive message">
-      <div class="header">Sendung erfolgreich erstellt</div>
+      <div class="header">Shipment angelegt</div>
       <p><strong>Tracking-ID:</strong> {{ newShipment.trackingId }}</p>
       <p><strong>Preis:</strong> {{ newShipment.price }} €</p>
     </div>

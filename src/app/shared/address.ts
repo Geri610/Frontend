@@ -11,5 +11,4 @@ export class Address {
     public addressIsComplete(): boolean {
         return !!this.street && !!this.houseNumber && !!this.zip && !!this.city && !!this.name && !!this.country;
     }
-
 }

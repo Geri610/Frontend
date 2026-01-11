@@ -17,15 +17,14 @@ export class AddShipment {
   newShipment: Shipment | null = null;
   sender: Address = new Address();
   receiver: Address = new Address();
-  parcel: Parcel = new Parcel();
+  parcel: Parcel = new Parcel(1,1,1,1);
   errorMessage: string | null = null;
 
   constructor(private shipmentService: ShipmentService) { }
 
-  submitShipment() {
+  addShipment() {
     this.errorMessage = null;
 
-    // Eingabevalidierung
     if (!this.sender.addressIsComplete() ||
       !this.receiver.addressIsComplete() ||
       !this.parcel.parcelIsComplete()) {
@@ -33,7 +32,6 @@ export class AddShipment {
       return;
     }
 
-    // Request-Body für Backend 
     const body = {
       senderAddress: this.sender,
       receiverAddress: this.receiver,
@@ -41,25 +39,22 @@ export class AddShipment {
       url: "http://localhost:4200/label/"
     };
 
-    // POST an Backend
-    this.shipmentService.create(body as any).subscribe({
+    this.shipmentService.createShipment(body as any).subscribe({
       next: (res) => {
         this.newShipment = res as Shipment;
 
-        // alles speichern, was ich nach dem Redirect brauche
         localStorage.setItem("pendingShipment", JSON.stringify({
           Id: this.newShipment.id,
           trackingId: this.newShipment.trackingId,
           zip: this.newShipment.receiverAddress.zip
         }));
 
-        // Weiter zur Bezahlseite
         if (this.newShipment.url) {
           window.location.href = this.newShipment.url;
         }
       },
       error: () => {
-        this.errorMessage = "Fehler beim Anlegen der Sendung.";
+        this.errorMessage = "Shipment nicht erstellt";
       }
     });
   }
@@ -67,7 +62,7 @@ export class AddShipment {
   resetForm() {
       this.sender = new Address();
       this.receiver = new Address();
-      this.parcel = new Parcel();
+      this.parcel = new Parcel(10,10,10,10);
       this.errorMessage = null;
       this.newShipment = null;
   }

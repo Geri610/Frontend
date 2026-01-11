@@ -26,31 +26,29 @@ export class App {
     this.oauthService.configure(authConfig);
 
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(() => this.afterLogin());
+      .then(() => this.CompleteLogin());
   }
 
-  private afterLogin() {
-    console.log("TryLogin abgeschlossen");
-
+  private CompleteLogin() {
     if (!this.auth.isLoggedIn()) {
-      console.log("Nicht eingeloggt – Login-Flow wird später getriggert.");
+      console.log("Login nicht erfolgt");
       return;
     }
 
-    console.log("Login abgeschlossen → Tokens vorhanden");
+    console.log("Login erfolgreich");
 
-    // Init-API Call nach Login
+    // Init-API Call nach dem Login (Init-Controller im Backend)
     this.http.get<any>(environment.api + '/init').subscribe({
       next: (res) => {
-        console.log("Init-Result:", res);
+        console.log("Init-Return", res);
 
         if (res?.userId) {
           this.session.customerId = res.userId;
-          console.log("Customer set:", this.session.customerId);
+          console.log("Customer:", this.session.customerId);
         }
       },
       error: (err) => {
-        console.error("Init-Fehler:", err);
+        console.error("Init nicht erfolgreich:", err);
       }
     });
   }

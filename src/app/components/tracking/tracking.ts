@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { Shipment } from '../../shared/shipment';
 import { ShipmentService } from '../../services/shipment.service';
 import { ShipmentStatusEntry } from '../../shared/shipment-status-entry';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tracking',
@@ -15,12 +12,10 @@ import { DatePipe } from '@angular/common';
 })
 export class Tracking {
 
-trackedShipment: Shipment = new Shipment();
+  targetedShipment: Shipment = new Shipment();
   errorMessage: string | null = null;
   result: Shipment | null = null;
   history: ShipmentStatusEntry[] = [];
-
-  dummyShipments: Shipment[] = [];
 
   constructor(
     private shipmentService: ShipmentService,
@@ -31,30 +26,27 @@ trackedShipment: Shipment = new Shipment();
     this.result = null;
     this.history = [];
 
-    // 1) Validierung
-    if (!this.trackedShipment.trackingId) {
-      this.errorMessage = "Bitte Trackingnummer eingeben";
+    if (!this.targetedShipment.trackingId) {
+      this.errorMessage = "Trackingnummer eingeben";
       return;
     }
 
-    if (!this.trackedShipment.receiverAddress?.zip) {
-      this.errorMessage = "Bitte PLZ eingeben";
+    if (!this.targetedShipment.receiverAddress?.zip) {
+      this.errorMessage = "PLZ eingeben";
       return;
     }
 
-    const trackingId = this.trackedShipment.trackingId;
-    const zip = Number(this.trackedShipment.receiverAddress.zip);
+    const trackingId = this.targetedShipment.trackingId;
+    const zip = Number(this.targetedShipment.receiverAddress.zip);
 
-    // 2) Backend-Request
     this.shipmentService
-      .getByTrackingIdAndZip(trackingId, zip)
+      .getShipmentByTrackingIdAndZip(trackingId, zip)
       .subscribe(result => {
         if (!result) {
-          this.errorMessage = "Sendung nicht gefunden";
+          this.errorMessage = "Shipment nicht gefunden";
           return;
         }
 
-        // 3) Backend-Daten übernehmen
         this.result = result;
         this.history = result.history ?? [];
       });
