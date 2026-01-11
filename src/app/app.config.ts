@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { bearer_Interceptor } from './services/interceptor';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthInterceptor } from './services/bearer-Interceptor';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +17,7 @@ export const appConfig: ApplicationConfig = {
       useClass: bearer_Interceptor,
       multi: true
     },
+     provideRouter(routes),
+    provideOAuthClient()
   ]
 };
