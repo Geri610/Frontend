@@ -5,13 +5,12 @@ import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc
 import { AuthenticationService } from './services/authentication';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './environment/environment';
-import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink],
-  providers: [OAuthService, AuthenticationService, SessionService],
+  providers: [OAuthService, AuthenticationService],
   templateUrl: './app.html',
 })
 export class App {
@@ -20,8 +19,7 @@ export class App {
   constructor(
     private oauthService: OAuthService,
     public auth: AuthenticationService,
-    private http: HttpClient,
-    private session: SessionService
+    private http: HttpClient
   ) {
     this.oauthService.configure(authConfig);
 
@@ -41,11 +39,6 @@ export class App {
     this.http.get<any>(environment.api + '/init').subscribe({
       next: (res) => {
         console.log("Init-Return", res);
-
-        if (res?.userId) {
-          this.session.customerId = res.userId;
-          console.log("Customer:", this.session.customerId);
-        }
       },
       error: (err) => {
         console.error("Init nicht erfolgreich:", err);

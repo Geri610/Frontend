@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Chart } from 'chart.js/auto';
 import { Shipment } from '../../shared/shipment';
 import { ShipmentService } from '../../services/shipment.service';
-import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'Stats',
@@ -18,10 +17,7 @@ export class StatisticsComponent implements OnInit {
 
   private chartInstance?: Chart;
 
-  constructor(
-    private shipmentApi: ShipmentService,
-     private session: SessionService
-  ) {}
+  constructor(private shipmentApi: ShipmentService) {}
 
   ngOnInit(): void {
     this.getShipments();
