@@ -10,15 +10,16 @@ export class bearer_Interceptor implements HttpInterceptor {
   
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   
-      const token = this.auth.getAccessToken();
+      // const token = this.auth.getAccessToken();
   
-      if (token) {
+     /* if (token) {
         req = req.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`
           }
         });
       }
+        */
       return next.handle(req);
     }
 }

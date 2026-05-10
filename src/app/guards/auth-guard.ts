@@ -11,6 +11,10 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
+
+return true;
+    }
+    /*
     if (
       this.oauth.hasValidAccessToken() &&
       this.oauth.hasValidIdToken()
@@ -21,5 +25,6 @@ export class AuthGuard implements CanActivate {
     // optional: Redirect auf Login
     this.router.navigate(['/login']);
     return false;
+    */
   }
-}
+

@@ -1,0 +1,32 @@
+<div class="shop-container">
+  <header>
+    <h1>Unsere Bestseller 🔥</h1>
+    <p>Das sind die beliebtesten Artikel im Shop.</p>
+  </header>
+
+  <div class="item-grid">
+    @for (item of items; track item.id) {
+      <div class="item-card">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <span class="price">{{ item.price }}</span>
+        <button (click)="showDetails(item.id)">Details ansehen</button>
+      </div>
+    } @empty {
+      <div class="loading-state">
+        <p>Momentan sind keine Top-Produkte verfügbar.</p>
+        <button (click)="loadPopular()">Erneut versuchen</button>
+      </div>
+    }
+  </div>
+
+  @if (selectedItem) {
+    <div class="modal">
+      <div class="modal-content">
+        <h2>{{ selectedItem.name }}</h2>
+        <p>{{ selectedItem.description }}</p>
+        <button (click)="selectedItem = undefined">Schließen</button>
+      </div>
+    </div>
+  }
+</div>

@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { authConfig } from './auth.config';
 import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { AuthenticationService } from './services/authentication';
 import { HttpClient } from '@angular/common/http';
@@ -17,15 +16,9 @@ export class App {
   protected readonly title = signal('DeliFHery');
 
   constructor(
-    private oauthService: OAuthService,
     public auth: AuthenticationService,
     private http: HttpClient
-  ) {
-    this.oauthService.configure(authConfig);
-
-    this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(() => this.CompleteLogin());
-  }
+  ) {}
 
   private CompleteLogin() {
     if (!this.auth.isLoggedIn()) {
