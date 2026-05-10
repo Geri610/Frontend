@@ -1,31 +1,48 @@
 <div class="shop-container">
-  <header>
+  <header class="shop-header">
     <h1>Unsere Bestseller 🔥</h1>
-    <p>Das sind die beliebtesten Artikel im Shop.</p>
+    <p>Entdecke die Highlights aus unserem Sortiment.</p>
   </header>
 
   <div class="item-grid">
     @for (item of items; track item.id) {
       <div class="item-card">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description }}</p>
-        <span class="price">{{ item.price }}</span>
-        <button (click)="showDetails(item.id)">Details ansehen</button>
+        <div class="card-content">
+          <div class="badge">Top Seller</div>
+          <h3>{{ item.name }}</h3>
+          <p class="description">{{ item.description }}</p>
+        </div>
+        
+        <div class="card-footer">
+          <!-- Manuelle Formatierung statt Pipe -->
+          <span class="price">€ {{ item.price.toFixed(2) }}</span>
+          <button class="btn-details" (click)="showDetails(item.id)">
+            Details ansehen
+          </button>
+        </div>
       </div>
     } @empty {
-      <div class="loading-state">
+      <div class="empty-state">
+        <div class="icon">📦</div>
         <p>Momentan sind keine Top-Produkte verfügbar.</p>
-        <button (click)="loadPopular()">Erneut versuchen</button>
+        <button class="btn-retry" (click)="loadPopular()">Erneut versuchen</button>
       </div>
     }
   </div>
 
+  <!-- Modal Overlay -->
   @if (selectedItem) {
-    <div class="modal">
-      <div class="modal-content">
+    <div class="modal-overlay" (click)="selectedItem = undefined">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-icon" (click)="selectedItem = undefined">&times;</button>
         <h2>{{ selectedItem.name }}</h2>
-        <p>{{ selectedItem.description }}</p>
-        <button (click)="selectedItem = undefined">Schließen</button>
+        <div class="modal-body">
+          <p class="modal-description">{{ selectedItem.description }}</p>
+          <div class="modal-info">
+            <span class="modal-price">Preis: € {{ selectedItem.price.toFixed(2) }}</span>
+          </div>
+        </div>
+        <button class="btn-close" (click)="selectedItem = undefined">Schließen</button>
       </div>
     </div>
   }

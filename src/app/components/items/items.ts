@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-items',
   imports: [FormsModule],
-  templateUrl: './items.html'
+  templateUrl: './items.html',
+  styleUrl: './items.css'
 })
 export class Items {
   items: Item[] = [];
