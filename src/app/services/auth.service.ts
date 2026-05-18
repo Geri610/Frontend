@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap, of, throwError } from 'rxjs';
+import { Router } from '@angular/router'; // <-- 1. Router importieren
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   // Observable, das Komponenten abonnieren können
   public currentCustomerId$ = this.currentCustomerIdSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
 login(email: string, password: string): Observable<any> {
   console.log('1. login() im Service gestartet mit:', email);
@@ -43,5 +44,6 @@ login(email: string, password: string): Observable<any> {
 
   logout(): void {
     this.currentCustomerIdSubject.next(null);
+    this.router.navigate(['/login']);
   }
 }

@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms'; // <-- Importieren
 @Component({
   selector: 'app-anmeldung',
   templateUrl: './login.html',
-  imports: [FormsModule]
-  //styleUrls: ['./anmeldung.component.css']
+  imports: [FormsModule],
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
   email = '';
