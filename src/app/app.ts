@@ -1,41 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
-import { AuthenticationService } from './services/authentication';
-import { HttpClient } from '@angular/common/http';
-import { environment } from './environment/environment';
+import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common'; // <-- WICHTIG für den modern Control Flow mit Observables
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from './services/auth.service'; // Pfad anpassen
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
-  providers: [OAuthService, AuthenticationService],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, AsyncPipe], // <-- AsyncPipe hier eintragen
   templateUrl: './app.html',
+  //styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('DeliFHery');
-
-  constructor(
-    public auth: AuthenticationService,
-    private http: HttpClient
-  ) {}
-
-  private CompleteLogin() {
-    if (!this.auth.isLoggedIn()) {
-      console.log("Login nicht erfolgt");
-      return;
-    }
-
-    console.log("Login erfolgreich");
-
-    // Init-API Call nach dem Login (Init-Controller im Backend)
-    this.http.get<any>(environment.api + '/init').subscribe({
-      next: (res) => {
-        console.log("Init-Return", res);
-      },
-      error: (err) => {
-        console.error("Init nicht erfolgreich:", err);
-      }
-    });
-  }
+export class AppComponent {
+  // Durch das 'public' Schlüsselwort ist 'auth' direkt im HTML-Template oben verfügbar
+  constructor(public auth: AuthService) {} 
 }

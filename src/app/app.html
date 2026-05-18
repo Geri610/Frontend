@@ -8,7 +8,8 @@
 
     <!-- Hauptmenü -->
     <div class="right menu">
-        @if (auth.isLoggedIn()) {
+      <!-- Wir prüfen, ob das ID-Observable ungleich null ist -->
+      @if ((auth.currentCustomerId$ | async) !== null) {
         <a class="item" routerLink="/items" routerLinkActive="active">
           <i class="address book icon"></i> Items
         </a>
@@ -27,15 +28,15 @@
         <a class="item" routerLink="/Statistics" routerLinkActive="active">
           <i class="book icon"></i> Statistics
         </a>
-        <a class="item" (click)="auth.logout()">
-          <i class="lock icon"></i> Logout
+        <a class="item" style="cursor: pointer;" (click)="auth.logout()">
+          <i class="lock open icon"></i> Logout
         </a>
-    }
-    @else {    
-        <a class="item" (click)="auth.login()">
+      } @else {    
+        <!-- Wenn keine ID vorhanden ist, leiten wir zur Anmeldeseite weiter -->
+        <a class="item" routerLink="/anmeldung" routerLinkActive="active">
           <i class="lock icon"></i> Login
         </a>
-    }
+      }
     </div>
   </div>
 </div>
