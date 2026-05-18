@@ -51,7 +51,7 @@ export class CartComponent implements OnInit {
   increaseQuantity(item: CartItemDto): void {
     if (!this.userId) return;
 
-    this.cartService.addItemToCart(this.userId, item.id).subscribe({
+    this.cartService.addItemToCart(this.userId, item.item.id).subscribe({
       next: () => this.loadCart(), // Warenkorb neu laden, um aktuelle Daten zu sehen
       error: (err) => console.error('Fehler beim Erhöhen der Stückzahl:', err)
     });
@@ -62,7 +62,7 @@ export class CartComponent implements OnInit {
     if (!this.userId) return;
 
     // Wenn Stückzahl 1 ist und man verringert, wird der Artikel ganz gelöscht
-    this.cartService.removeItemFromCart(this.userId, item.id).subscribe({
+    this.cartService.removeItemFromCart(this.userId, item.item.id).subscribe({
       next: () => this.loadCart(),
       error: (err) => console.error('Fehler beim Verringern der Stückzahl:', err)
     });

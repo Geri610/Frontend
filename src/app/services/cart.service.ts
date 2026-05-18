@@ -18,6 +18,7 @@ export class CartService {
 
   // POST /cart/add?customerId=X&itemId=Y
   addItemToCart(customerId: number, itemId: number): Observable<void> {
+    console.log('added item id:', itemId);
     const params = new HttpParams()
       .set('customerId', customerId.toString())
       .set('itemId', itemId.toString());

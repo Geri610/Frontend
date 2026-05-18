@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // OnInit hinzugefügt
 import { ItemService } from '../../services/item.service';
+import { CartService } from '../../services/cart.service'; // <-- NEU
+import { AuthService } from '../../services/auth.service'; // <-- NEU
 import { ItemDto } from '../../shared/ItemDto';
 import { FormsModule } from '@angular/forms';
 
@@ -9,74 +11,58 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './items.html',
   styleUrl: './items.css'
 })
-export class Items {
+export class Items implements OnInit {
   items: ItemDto[] = [];
   selectedItem?: ItemDto;
   searchTerm: string = '';
   loading: boolean = false;
   
+  // 1. Services im Konstruktor ergänzen
   constructor(
-    private itemService: ItemService){}
+    private itemService: ItemService,
+    private cartService: CartService,
+    private authService: AuthService
+  ){}
 
-ngOnInit(): void {
-    // 1. Alle Items beim Start laden
-    // this.loadAllItems();
+  ngOnInit(): void {
     this.loadPopular();
   }
 
- // --- GET ALL ---
- /*
-  loadAllItems(): void {
-    this.itemService.getAllItems().subscribe({
-      next: (data) => this.items = data,
-      error: (err) => console.error('Fehler beim Laden:', err)
+  // --- IN DEN WARENKORB HINZUFÜGEN (NEU!) ---
+  addToCart(itemId: number): void {
+    // ID des aktuell eingeloggten Benutzers holen
+    const customerId = this.authService.getCustomerId();
+
+    if (!customerId) {
+      alert('Bitte logge dich zuerst ein, um Artikel in den Warenkorb zu legen!');
+      return;
+    }
+
+    // Aufruf an das Spring-Boot-Backend (POST /cart/add?customerId=X&itemId=Y)
+    this.cartService.addItemToCart(customerId, itemId).subscribe({
+      next: () => {
+        alert('Artikel wurde erfolgreich zum Warenkorb hinzugefügt! 🛒');
+      },
+      error: (err) => {
+        console.error('Fehler beim Hinzufügen zum Warenkorb:', err);
+        alert('Fehler beim Hinzufügen zum Warenkorb.');
+      }
     });
   }
-    */
 
-  // --- GET BY ID ---
+  // --- RESTLICHE METHODEN (showDetails, loadPopular, etc. bleiben exakt gleich) ---
   showDetails(id: number): void {
     this.itemService.getItemById(id).subscribe(item => {
       this.selectedItem = item;
     });
   }
 
-  // --- POST ---
-  addNewItem(): void {
-    const newItem: ItemDto = { id: 0, name: 'Neues Produkt', description: 'Beschreibung', price: 19.99 };
-    this.itemService.createItem(newItem).subscribe(createdItem => {
-      this.items.push(createdItem); // Liste lokal aktualisieren
-    });
-  }
-
-  // --- PUT ---
-  updatePrice(item: ItemDto): void {
-    const updatedData = { ...item, price: item.price + 5 };
-    this.itemService.updateItem(item.id, updatedData).subscribe(updatedItem => {
-      // Item in der Liste ersetzen
-      const index = this.items.findIndex(i => i.id === item.id);
-      this.items[index] = updatedItem;
-    });
-  }
-
-  // --- DELETE ---
-  deleteItem(id: number): void {
-    if (confirm('Wirklich löschen?')) {
-      this.itemService.deleteItem(id).subscribe(() => {
-        // Erfolgreich gelöscht -> aus lokalem Array entfernen
-        this.items = this.items.filter(i => i.id !== id);
-      });
-    }
-  }
-
-  // --- GET POPULAR ---
   loadPopular(): void {
     this.itemService.getMostPopularItems().subscribe(data => {
       this.items = data;
     });
   }
 
-  // --- SEARCH ---
   onSearch(): void {
     if (this.searchTerm.trim()) {
       this.itemService.searchItems(this.searchTerm).subscribe(results => {

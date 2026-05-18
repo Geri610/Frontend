@@ -5,7 +5,7 @@ export class CartItemDto{
   item: ItemDto;
   quantity: number;
 
-  constructor(id: number = 0, item: ItemDto, quantity: number = 0) {
+  constructor(id: number, item: ItemDto, quantity: number) {
     this.id = id;
     this.item = item;
     this.quantity = quantity;

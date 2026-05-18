@@ -5,7 +5,7 @@ export class CartDto {
   customerId: number;
   items: CartItemDto[]; // Entspricht deiner ArrayList in Java
 
-  constructor(id: number = 0, customerId: number = 0, items: CartItemDto[] = []) {
+  constructor(id: number, customerId: number, items: CartItemDto[] = []) {
     this.id = id;
     this.customerId = customerId;
     this.items = items;

@@ -11,14 +11,22 @@
           <div class="badge">Top Seller</div>
           <h3>{{ item.name }}</h3>
           <p class="description">{{ item.description }}</p>
+          <p class="id">{{ item.id }}</p>
         </div>
         
         <div class="card-footer">
-          <!-- Manuelle Formatierung statt Pipe -->
           <span class="price">€ {{ item.price.toFixed(2) }}</span>
-          <button class="btn-details" (click)="showDetails(item.id)">
-            Details ansehen
-          </button>
+          
+          <!-- BUTTONS NEU GEORDNET & ERGÄNZT -->
+          <div class="action-buttons" style="display: flex; gap: 8px; width: 100%; margin-top: 10px;">
+            <button class="btn-details" (click)="showDetails(item.id)" style="flex: 1;">
+              Details
+            </button>
+            <button class="btn-add-cart" (click)="addToCart(item.id)" style="flex: 1; background-color: #21ba45; color: white; border: none; border-radius: 4px; cursor: pointer; padding: 8px;">
+              🛒 +
+            </button>
+          </div>
+
         </div>
       </div>
     } @empty {
@@ -42,7 +50,16 @@
             <span class="modal-price">Preis: € {{ selectedItem.price.toFixed(2) }}</span>
           </div>
         </div>
-        <button class="btn-close" (click)="selectedItem = undefined">Schließen</button>
+        
+        <!-- BUTTONS IM MODAL ERGÄNZT -->
+        <div class="modal-footer" style="display: flex; gap: 10px; margin-top: 20px;">
+          <button class="btn-add-cart" (click)="addToCart(selectedItem.id); selectedItem = undefined" style="background-color: #21ba45; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+            In den Warenkorb legen
+          </button>
+          <button class="btn-close" (click)="selectedItem = undefined" style="background-color: #e0e1e2; color: rgba(0,0,0,.6); border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">
+            Schließen
+          </button>
+        </div>
       </div>
     </div>
   }
