@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ItemService } from '../../services/item.service';
-import { Item } from '../../shared/item';
+import { ItemDto } from '../../shared/ItemDto';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,8 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './items.css'
 })
 export class Items {
-  items: Item[] = [];
-  selectedItem?: Item;
+  items: ItemDto[] = [];
+  selectedItem?: ItemDto;
   searchTerm: string = '';
   loading: boolean = false;
   
@@ -43,14 +43,14 @@ ngOnInit(): void {
 
   // --- POST ---
   addNewItem(): void {
-    const newItem: Item = { id: 0, name: 'Neues Produkt', description: 'Beschreibung', price: 19.99 };
+    const newItem: ItemDto = { id: 0, name: 'Neues Produkt', description: 'Beschreibung', price: 19.99 };
     this.itemService.createItem(newItem).subscribe(createdItem => {
       this.items.push(createdItem); // Liste lokal aktualisieren
     });
   }
 
   // --- PUT ---
-  updatePrice(item: Item): void {
+  updatePrice(item: ItemDto): void {
     const updatedData = { ...item, price: item.price + 5 };
     this.itemService.updateItem(item.id, updatedData).subscribe(updatedItem => {
       // Item in der Liste ersetzen

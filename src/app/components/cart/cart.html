@@ -1,0 +1,58 @@
+<div class="cart-container">
+  <h2>Dein Warenkorb</h2>
+
+  @if (errorMessage) {
+    <div class="error-msg">{{ errorMessage }}</div>
+  }
+
+  @if (cart && cart.items && cart.items.length > 0) {
+    <div class="cart-table-container">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Artikel</th>
+            <th>Preis</th>
+            <th>Stückzahl</th>
+            <th>Gesamt</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of cart.items; track item.id) {
+            <tr>
+              <td>{{ item.item.name }}</td>
+              <td>{{ item.item.price | currency:'EUR' }}</td>
+              <td>
+                <div class="quantity-controls">
+                  <button (click)="decreaseQuantity(item)" class="btn-qty">-</button>
+                  <span class="qty-value">{{ item.quantity }}</span>
+                  <button (click)="increaseQuantity(item)" class="btn-qty">+</button>
+                </div>
+              </td>
+              <td>{{ (item.item.price * item.quantity) | currency:'EUR' }}</td>
+              <td>
+                <button (click)="deleteItemCompletely(item)" class="btn-delete">
+                  Löschen
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="total-price">
+          Gesamtsumme: <span>{{ getTotalPrice() | currency:'EUR' }}</span>
+        </div>
+        <button (click)="navigateToCheckout()" class="btn-checkout">
+          Weiter zum Check-out
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-cart">
+      <p>Dein Warenkorb ist noch leer.</p>
+      <button (click)="router.navigate(['/items'])" class="btn-shop">Jetzt shoppen</button>
+    </div>
+  }
+</div>

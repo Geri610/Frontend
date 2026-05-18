@@ -11,10 +11,10 @@
       <!-- Wir prüfen, ob das ID-Observable ungleich null ist -->
       @if ((auth.currentCustomerId$ | async) !== null) {
         <a class="item" routerLink="/items" routerLinkActive="active">
-          <i class="address book icon"></i> Items
+          <i class="box icon"></i> Items
         </a>
-        <a class="item" routerLink="/shipment" routerLinkActive="active">
-          <i class="shipping fast icon"></i> Shipment
+        <a class="item" routerLink="/cart" routerLinkActive="active">
+          <i class="shopping cart icon"></i> Shopping Cart
         </a>
         <a class="item" routerLink="/price" routerLinkActive="active">
           <i class="dollar icon"></i> Price
