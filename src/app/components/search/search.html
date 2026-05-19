@@ -1,58 +1,81 @@
-<div class="search-page-container">
-  <h2>Produkt-Suche 🔍</h2>
+<div class="shop-container">
+  <header class="shop-header">
+    <h1>Produkt-Suche 🔍</h1>
+    <p>Durchsuche unser Sortiment nach Name oder Beschreibung.</p>
+  </header>
 
-  <!-- SUCHBEREICH -->
-  <div class="search-box">
+  <!-- SUCHLEISTE -->
+  <div class="search-box" style="display: flex; gap: 10px; margin-bottom: 30px; max-width: 600px;">
     <input 
       type="text" 
-      [(ngModel)]="searchQuery" 
+      [(ngModel)]="searchTerm" 
       (keyup.enter)="onSearch()" 
-      placeholder="Produktname oder Beschreibung eingeben..."
-      class="search-input"
+      placeholder="Suchbegriff eingeben..."
+      style="flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; outline: none;"
     />
-    <button class="btn-search" (click)="onSearch()">Suchen</button>
+    <button (click)="onSearch()" style="background-color: #21ba45; color: white; border: none; padding: 0 25px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+      Suchen
+    </button>
   </div>
 
-  @if (errorMessage) {
-    <div class="error-banner">{{ errorMessage }}</div>
-  }
-
-  <!-- LADE-INDIKATOR -->
-  @if (loading) {
-    <div class="loader-box">
-      <div class="spinner"></div>
-      <p>Suche läuft...</p>
-    </div>
-  } @else {
-    
-    <!-- ERGEBNISBEREICH -->
-    <div class="results-container">
-      
-      @if (searchResults.length > 0) {
-        <p class="results-count">{{ searchResults.length }} Produkt(e) gefunden:</p>
+  <!-- ERGEBNIS-GRID -->
+  <div class="item-grid">
+    @for (item of items; track item.id) {
+      <div class="item-card">
+        <div class="card-content">
+          <div class="badge" style="background-color: #2185d0;">Suchergebnis</div>
+          <h3>{{ item.name }}</h3>
+          <p class="description">{{ item.description }}</p>
+          <p class="id">{{ item.id }}</p>
+        </div>
         
-        <div class="products-grid">
-          @for (product of searchResults; track product.id) {
-            <!-- Klickbares Produkt-Kärtchen -->
-            <div class="product-card" (click)="goToDetails(product.id)">
-              <div class="product-info">
-                <h3 class="product-title">{{ product.name }}</h3>
-                <p class="product-description">{{ product.description }}</p>
-              </div>
-              <div class="product-footer">
-                <span class="product-price">{{ product.price | currency:'EUR' }}</span>
-                <span class="btn-view">Details ansehen →</span>
-              </div>
-            </div>
-          }
+        <div class="card-footer">
+          <span class="price">€ {{ item.price.toFixed(2) }}</span>
+          
+          <div class="action-buttons" style="display: flex; gap: 8px; width: 100%; margin-top: 10px;">
+            <button class="btn-details" (click)="showDetails(item.id)" style="flex: 1;">
+              Details
+            </button>
+            <button class="btn-add-cart" (click)="addToCart(item.id)" style="flex: 1; background-color: #21ba45; color: white; border: none; border-radius: 4px; cursor: pointer; padding: 8px;">
+              🛒 +
+            </button>
+          </div>
         </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <div class="icon">🔍</div>
+        @if (hasSearched) {
+          <p>Keine Produkte für "<strong>{{ searchTerm }}</strong>" gefunden.</p>
+        } @else {
+          <p>Gib einen Suchbegriff ein, um die Suche zu starten.</p>
+        }
+      </div>
+    }
+  </div>
 
-      } @else if (hasSearched) {
-        <div class="no-results">
-          <p>Leider wurden keine passenden Produkte für "<strong>{{ searchQuery }}</strong>" gefunden.</p>
+  <!-- Modal Overlay -->
+  @if (selectedItem) {
+    <div class="modal-overlay" (click)="selectedItem = undefined">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-icon" (click)="selectedItem = undefined">&times;</button>
+        <h2>{{ selectedItem.name }}</h2>
+        <div class="modal-body">
+          <p class="modal-description">{{ selectedItem.description }}</p>
+          <div class="modal-info">
+            <span class="modal-price">Preis: € {{ selectedItem.price.toFixed(2) }}</span>
+          </div>
         </div>
-      }
-
+        
+        <div class="modal-footer" style="display: flex; gap: 10px; margin-top: 20px;">
+          <button class="btn-add-cart" (click)="addToCart(selectedItem.id); selectedItem = undefined" style="background-color: #21ba45; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+            In den Warenkorb legen
+          </button>
+          <button class="btn-close" (click)="selectedItem = undefined" style="background-color: #e0e1e2; color: rgba(0,0,0,.6); border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">
+            Schließen
+          </button>
+        </div>
+      </div>
     </div>
   }
 </div>

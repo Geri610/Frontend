@@ -1,53 +1,69 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { ItemService } from '../../services/item.service';
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { ItemDto } from '../../shared/ItemDto';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './search.html',
-  styleUrl: './search.css'
+  styleUrl: './search.css' // Verwendet exakt dein bestehendes CSS für das Layout!
 })
-export class ProductSearchComponent {
-  searchQuery: string = '';
-  searchResults: ItemDto[] = [];
-  hasSearched: boolean = false; // Steuert die Anzeige von "Keine Produkte gefunden"
-  loading: boolean = false;
-  errorMessage: string = '';
+export class ProductSearch {
+  items: ItemDto[] = [];
+  selectedItem?: ItemDto;
+  searchTerm: string = '';
+  hasSearched: boolean = false;
 
-  constructor(private itemService: ItemService, private router: Router) {}
+  constructor(
+    private itemService: ItemService,
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
 
   onSearch(): void {
-    // Leere Suchanfragen abfangen
-    if (!this.searchQuery || this.searchQuery.trim() === '') {
-      this.searchResults = [];
+    if (this.searchTerm.trim()) {
+      this.itemService.searchItems(this.searchTerm.trim()).subscribe({
+        next: (results) => {
+          this.items = results;
+          this.hasSearched = true;
+        },
+        error: (err) => {
+          console.error('Fehler bei der Suche:', err);
+          alert('Fehler bei der Ausführung der Suche.');
+        }
+      });
+    } else {
+      this.items = [];
       this.hasSearched = false;
-      return;
     }
+  }
 
-    this.loading = true;
-    this.errorMessage = '';
-
-    this.itemService.searchItems(this.searchQuery.trim()).subscribe({
-      next: (results) => {
-        this.searchResults = results;
-        this.hasSearched = true;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Fehler bei der Produktsuche:', err);
-        this.errorMessage = 'Es gab ein Problem bei der Suche. Bitte versuche es erneut.';
-        this.loading = false;
-      }
+  showDetails(id: number): void {
+    this.itemService.getItemById(id).subscribe(item => {
+      this.selectedItem = item;
     });
   }
 
-  // Navigiert zu den Produktdetails und übergibt die ID im Pfad (/product-details/4)
-  goToDetails(productId: number): void {
-    this.router.navigate(['/product-details', productId]);
+  addToCart(itemId: number): void {
+    const customerId = this.authService.getCustomerId();
+
+    if (!customerId) {
+      alert('Bitte logge dich zuerst ein, um Artikel in den Warenkorb zu legen!');
+      return;
+    }
+
+    this.cartService.addItemToCart(customerId, itemId).subscribe({
+      next: () => {
+        alert('Artikel wurde erfolgreich zum Warenkorb hinzugefügt! 🛒');
+      },
+      error: (err) => {
+        console.error('Fehler beim Hinzufügen zum Warenkorb:', err);
+        alert('Fehler beim Hinzufügen zum Warenkorb.');
+      }
+    });
   }
 }
