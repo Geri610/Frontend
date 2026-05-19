@@ -72,16 +72,7 @@ export class CartComponent implements OnInit {
   deleteItemCompletely(item: CartItemDto): void {
     if (!this.userId) return;
 
-    // Da dein Java-Backend beim DELETE-Aufruf immer genau 1 Stück abzieht (removeItemFromCart),
-    // simulieren wir das komplette Löschen, indem wir den DELETE-Befehl so oft senden, wie Artikel da sind.
-    // (Alternativ müsste dein Backend ein Endpunkt für "komplett löschen" haben).
-    const deleteRequests = [];
-    for (let i = 0; i < item.quantity; i++) {
-        deleteRequests.push(this.cartService.removeItemFromCart(this.userId!, item.id));
-    }
-
-    // Rekursiv oder nacheinander löschen:
-    this.cartService.removeItemFromCart(this.userId, item.id).subscribe({
+    this.cartService.removeItemFromCart(this.userId, item.item.id).subscribe({
         next: () => {
             // Vereinfacht für FH-Zwecke: Wir triggern das Löschen und laden neu
             this.loadCart();
