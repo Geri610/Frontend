@@ -1,0 +1,58 @@
+<div class="search-page-container">
+  <h2>Produkt-Suche 🔍</h2>
+
+  <!-- SUCHBEREICH -->
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      (keyup.enter)="onSearch()" 
+      placeholder="Produktname oder Beschreibung eingeben..."
+      class="search-input"
+    />
+    <button class="btn-search" (click)="onSearch()">Suchen</button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-banner">{{ errorMessage }}</div>
+  }
+
+  <!-- LADE-INDIKATOR -->
+  @if (loading) {
+    <div class="loader-box">
+      <div class="spinner"></div>
+      <p>Suche läuft...</p>
+    </div>
+  } @else {
+    
+    <!-- ERGEBNISBEREICH -->
+    <div class="results-container">
+      
+      @if (searchResults.length > 0) {
+        <p class="results-count">{{ searchResults.length }} Produkt(e) gefunden:</p>
+        
+        <div class="products-grid">
+          @for (product of searchResults; track product.id) {
+            <!-- Klickbares Produkt-Kärtchen -->
+            <div class="product-card" (click)="goToDetails(product.id)">
+              <div class="product-info">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+              </div>
+              <div class="product-footer">
+                <span class="product-price">{{ product.price | currency:'EUR' }}</span>
+                <span class="btn-view">Details ansehen →</span>
+              </div>
+            </div>
+          }
+        </div>
+
+      } @else if (hasSearched) {
+        <div class="no-results">
+          <p>Leider wurden keine passenden Produkte für "<strong>{{ searchQuery }}</strong>" gefunden.</p>
+        </div>
+      }
+
+    </div>
+  }
+</div>
