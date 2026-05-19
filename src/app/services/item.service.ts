@@ -36,7 +36,7 @@ export class ItemService {
     return this.http.get<ItemDto[]>(`${this.apiUrl}/popular`);
   }
 
-  searchItems(searchString: string): Observable<ItemDto[]> {.
+  searchItems(searchString: string): Observable<ItemDto[]> {
     const params = new HttpParams().set('searchString', searchString);
     return this.http.get<ItemDto[]>(`${this.apiUrl}/search`, { params });
   }
