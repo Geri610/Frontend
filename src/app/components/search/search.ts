@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { ItemDto } from '../../shared/ItemDto';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-search',
@@ -21,7 +22,8 @@ export class ProductSearch {
   constructor(
     private itemService: ItemService,
     private cartService: CartService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   onSearch(): void {
@@ -58,7 +60,7 @@ export class ProductSearch {
 
     this.cartService.addItemToCart(customerId, itemId).subscribe({
       next: () => {
-        alert('Artikel wurde erfolgreich zum Warenkorb hinzugefügt! 🛒');
+        this.router.navigate(['/cart']);
       },
       error: (err) => {
         console.error('Fehler beim Hinzufügen zum Warenkorb:', err);
