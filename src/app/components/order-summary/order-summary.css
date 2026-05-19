@@ -1,0 +1,185 @@
+.summary-page-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Erfolgs-Banner oben */
+.success-header {
+    text-align: center;
+    margin-bottom: 40px;
+    background-color: #f1faf2;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #21ba45;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+}
+
+.success-header h2 {
+    color: #1e7e34;
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Grid Layout */
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.summary-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef2f5;
+}
+
+.summary-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #eef2f5;
+    margin: 15px 0;
+}
+
+/* Meta Infos */
+.meta-info p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Artikelliste */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.order-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eef2f5;
+}
+
+.order-item-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-qty {
+    font-weight: bold;
+    color: #21ba45;
+    margin-right: 12px;
+}
+
+.item-title {
+    font-weight: 500;
+}
+
+.item-prices {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-single-price {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.item-total-price {
+    font-size: 1rem;
+}
+
+/* Rechnungs-Konto-Box rechts */
+.price-calc-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.free-shipping {
+    color: #21ba45;
+    font-weight: bold;
+}
+
+.total-separator {
+    background: #ccc;
+    height: 2px;
+}
+
+.grand-total {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+.total-amount {
+    font-size: 1.4rem;
+    color: #21ba45;
+}
+
+/* Aktionen ganz unten */
+.summary-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-home {
+    background-color: #21ba45;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(33, 186, 69, 0.2);
+    transition: background 0.15s ease;
+}
+
+.btn-home:hover {
+    background-color: #16ab39;
+}

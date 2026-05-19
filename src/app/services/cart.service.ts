@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CartDto } from '../shared/CartDto';
+import { CustomerDto } from '../shared/CustomerDto';
+import { PaymentMethodDto } from '../shared/PaymentMethodDto';
+import { OrderDto } from '../shared/OrderDto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +34,31 @@ export class CartService {
       .set('customerId', customerId.toString())
       .set('itemId', itemId.toString());
     return this.http.delete<void>(this.apiUrl, { params });
+  }
+
+  // Get Customer
+  getCustomerForId(customerId: number): Observable<CustomerDto> {
+    return this.http.get<CustomerDto>(`http://localhost:8080/customer/${customerId}`);
+  }
+
+  
+  // Get PaymentMethods
+  getPaymentMethods(): Observable<PaymentMethodDto[]> {
+    return this.http.get<PaymentMethodDto[]>('http://localhost:8080/cart/paymentMethods');
+  }
+
+  checkOutCart(customerId: number, paymentId: number): Observable<OrderDto> {
+    // Setzt den Request-Parameter (?paymentId=...)
+    const params = new HttpParams().set('paymentId', paymentId.toString());
+
+    // Der eigentliche POST-Request
+    // 1. Parameter: Die URL inklusive PathVariable
+    // 2. Parameter: null (da kein @RequestBody im Backend erwartet wird)
+    // 3. Parameter: Das Options-Objekt mit den Query-Parametern
+    return this.http.post<OrderDto>(
+      `${this.apiUrl}/checkout/${customerId}`, 
+      null, 
+      { params }
+    );
   }
 }

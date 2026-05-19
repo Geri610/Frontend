@@ -1,0 +1,75 @@
+<div class="summary-page-container">
+  @if (order) {
+    
+    <!-- ERFOLGS-HEADER -->
+    <div class="success-header">
+      <div class="success-icon">✓</div>
+      <h2>Vielen Dank für deine Bestellung! 🎉</h2>
+      <p class="subtitle">Deine Bestellung wurde erfolgreich entgegengenommen und wird nun bearbeitet.</p>
+    </div>
+
+    <div class="summary-grid">
+      
+      <!-- LINKER BEREICH: BESTELLDETAILS -->
+      <div class="summary-card main-details">
+        <h3>📋 Bestelldaten</h3>
+        <hr />
+        <div class="meta-info">
+          <p><strong>Bestellnummer:</strong> #{{ order.id }}</p>
+          <p><strong>Bestelldatum:</strong> {{ order.orderDate | date:'dd.MM.yyyy HH:mm' }} Uhr</p>
+          <p><strong>Lieferadresse:</strong> {{ order.shippingAddress }}</p>
+          
+          @if (order.paymentMethod) {
+            <p><strong>Zahlungsart:</strong> {{ order.paymentMethod.provider }} ({{ order.paymentMethod.data }})</p>
+          }
+        </div>
+
+        <h3>📦 Bestellte Artikel</h3>
+        <hr />
+        <div class="items-list">
+          @for (orderItem of order.items; track orderItem.id) {
+            <div class="order-item-row">
+              <div class="item-name-qty">
+                <span class="item-qty">{{ orderItem.quantity }}x</span>
+                <!-- Sicherer Zugriff auf das verschachtelte ItemDto -->
+                <span class="item-title">{{ orderItem.item?.name }}</span>
+              </div>
+              <div class="item-prices">
+                <span class="item-single-price">Je {{ orderItem.price | currency:'EUR' }}</span>
+                <span class="item-total-price"><strong>{{ (orderItem.price * orderItem.quantity) | currency:'EUR' }}</strong></span>
+              </div>
+            </div>
+          } @empty {
+            <p class="no-data">Keine Artikeldaten zu dieser Bestellung gefunden.</p>
+          }
+        </div>
+      </div>
+
+      <!-- RECHTER BEREICH: RECHNUNGSZUSAMMENFASSUNG -->
+      <div class="summary-card total-card">
+        <h3>💰 Rechnungsbetrag</h3>
+        <hr />
+        <div class="price-calc-row">
+          <span>Zwischensumme</span>
+          <span>{{ order.total | currency:'EUR' }}</span>
+        </div>
+        <div class="price-calc-row">
+          <span>Versandkosten</span>
+          <span class="free-shipping">GRATIS</span>
+        </div>
+        <hr class="total-separator" />
+        <div class="price-calc-row grand-total">
+          <span>Gesamtsumme (inkl. MwSt.)</span>
+          <span class="total-amount">{{ order.total | currency:'EUR' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BUTTONS ZUM WEITERMACHEN -->
+    <div class="summary-actions">
+      <button class="btn-home" (click)="navigateToHome()">Weiter einkaufen</button>
+    </div>
+
+  }
+</div>
