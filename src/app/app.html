@@ -6,9 +6,7 @@
       DeliFHery
     </a>
 
-    <!-- Hauptmenü -->
     <div class="right menu">
-      <!-- Wir prüfen, ob das ID-Observable ungleich null ist -->
       @if ((auth.currentCustomerId$ | async) !== null) {
         <a class="item" routerLink="/items" routerLinkActive="active">
           <i class="box icon"></i> Items
@@ -23,7 +21,6 @@
           <i class="lock open icon"></i> Logout
         </a>
       } @else {    
-        <!-- Wenn keine ID vorhanden ist, leiten wir zur Anmeldeseite weiter -->
         <a class="item" routerLink="/anmeldung" routerLinkActive="active">
           <i class="lock icon"></i> Login
         </a>
@@ -32,7 +29,6 @@
   </div>
 </div>
 
-<!-- Router Outlet -->
 <div class="ui main container" style="margin-top: 2rem;">
   <router-outlet></router-outlet>
 </div>

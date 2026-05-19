@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './search.html',
-  styleUrl: './search.css' // Verwendet exakt dein bestehendes CSS für das Layout!
+  styleUrl: './search.css'
 })
 export class ProductSearch {
   items: ItemDto[] = [];

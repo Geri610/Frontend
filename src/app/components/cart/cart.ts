@@ -25,7 +25,6 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1. ID des angemeldeten Benutzers holen
     this.userId = this.authService.getCustomerId();
 
     if (this.userId) {
@@ -47,7 +46,6 @@ export class CartComponent implements OnInit {
     console.log(this.cart);
   }
 
-  // Stückzahl erhöhen (+ Button)
   increaseQuantity(item: CartItemDto): void {
     if (!this.userId) return;
 
@@ -57,36 +55,30 @@ export class CartComponent implements OnInit {
     });
   }
 
-  // Stückzahl verringern (- Button)
   decreaseQuantity(item: CartItemDto): void {
     if (!this.userId) return;
 
-    // Wenn Stückzahl 1 ist und man verringert, wird der Artikel ganz gelöscht
     this.cartService.removeItemFromCart(this.userId, item.item.id).subscribe({
       next: () => this.loadCart(),
       error: (err) => console.error('Fehler beim Verringern der Stückzahl:', err)
     });
   }
 
-  // Artikel komplett entfernen (Löschen Button)
   deleteItemCompletely(item: CartItemDto): void {
     if (!this.userId) return;
 
     this.cartService.removeItemFromCart(this.userId, item.item.id).subscribe({
         next: () => {
-            // Vereinfacht für FH-Zwecke: Wir triggern das Löschen und laden neu
             this.loadCart();
         }
     });
   }
 
-  // Gesamtsumme berechnen für die Anzeige
   getTotalPrice(): number {
     if (!this.cart || !this.cart.items) return 0;
     return this.cart.items.reduce((sum, item) => sum + (item.item.price * item.quantity), 0);
   }
 
-  // Zum Checkout navigieren
   navigateToCheckout(): void {
     this.router.navigate(['/checkout']);
   }

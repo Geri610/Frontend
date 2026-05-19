@@ -17,7 +17,6 @@
         <div class="card-footer">
           <span class="price">€ {{ item.price.toFixed(2) }}</span>
           
-          <!-- BUTTONS NEU GEORDNET & ERGÄNZT -->
           <div class="action-buttons" style="display: flex; gap: 8px; width: 100%; margin-top: 10px;">
             <button class="btn-details" (click)="showDetails(item.id)" style="flex: 1;">
               Details
@@ -38,7 +37,6 @@
     }
   </div>
 
-  <!-- Modal Overlay -->
   @if (selectedItem) {
     <div class="modal-overlay" (click)="selectedItem = undefined">
       <div class="modal-content" (click)="$event.stopPropagation()">
@@ -51,7 +49,6 @@
           </div>
         </div>
         
-        <!-- BUTTONS IM MODAL ERGÄNZT -->
         <div class="modal-footer" style="display: flex; gap: 10px; margin-top: 20px;">
           <button class="btn-add-cart" (click)="addToCart(selectedItem.id); selectedItem = undefined" style="background-color: #21ba45; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
             In den Warenkorb legen

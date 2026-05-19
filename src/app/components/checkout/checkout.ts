@@ -43,7 +43,6 @@ export class CheckoutComponent implements OnInit {
   loadCheckoutData(): void {
     this.loading = true;
     
-    // 1. Kundendaten laden
     this.cartService.getCustomerForId(this.customerId).subscribe({
       next: (data) => {
         this.customer = data;
@@ -58,12 +57,11 @@ export class CheckoutComponent implements OnInit {
       }
     });
 
-    // 2. Zahlungsmethoden laden
     this.cartService.getPaymentMethods().subscribe({
       next: (methods) => {
         this.paymentMethods = methods;
         if (methods.length > 0) {
-          this.selectedPayment = methods[0]; // Erste Methode vorauswählen
+          this.selectedPayment = methods[0];
         }
         this.checkLoadingState();
       },

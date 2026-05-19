@@ -4,7 +4,6 @@
     <p>Durchsuche unser Sortiment nach Name oder Beschreibung.</p>
   </header>
 
-  <!-- SUCHLEISTE -->
   <div class="search-box" style="display: flex; gap: 10px; margin-bottom: 30px; max-width: 600px;">
     <input 
       type="text" 
@@ -18,7 +17,6 @@
     </button>
   </div>
 
-  <!-- ERGEBNIS-GRID -->
   <div class="item-grid">
     @for (item of items; track item.id) {
       <div class="item-card">
@@ -54,7 +52,6 @@
     }
   </div>
 
-  <!-- Modal Overlay -->
   @if (selectedItem) {
     <div class="modal-overlay" (click)="selectedItem = undefined">
       <div class="modal-content" (click)="$event.stopPropagation()">

@@ -1,7 +1,6 @@
 <div class="summary-page-container">
   @if (order) {
     
-    <!-- ERFOLGS-HEADER -->
     <div class="success-header">
       <div class="success-icon">✓</div>
       <h2>Vielen Dank für deine Bestellung! 🎉</h2>
@@ -10,7 +9,6 @@
 
     <div class="summary-grid">
       
-      <!-- LINKER BEREICH: BESTELLDETAILS -->
       <div class="summary-card main-details">
         <h3>📋 Bestelldaten</h3>
         <hr />
@@ -31,7 +29,6 @@
             <div class="order-item-row">
               <div class="item-name-qty">
                 <span class="item-qty">{{ orderItem.quantity }}x</span>
-                <!-- Sicherer Zugriff auf das verschachtelte ItemDto -->
                 <span class="item-title">{{ orderItem.item?.name }}</span>
               </div>
               <div class="item-prices">
@@ -45,7 +42,6 @@
         </div>
       </div>
 
-      <!-- RECHTER BEREICH: RECHNUNGSZUSAMMENFASSUNG -->
       <div class="summary-card total-card">
         <h3>💰 Rechnungsbetrag</h3>
         <hr />
@@ -66,7 +62,6 @@
 
     </div>
 
-    <!-- BUTTONS ZUM WEITERMACHEN -->
     <div class="summary-actions">
       <button class="btn-home" (click)="navigateToHome()">Weiter einkaufen</button>
     </div>

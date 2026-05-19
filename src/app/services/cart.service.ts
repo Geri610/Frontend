@@ -48,13 +48,7 @@ export class CartService {
   }
 
   checkOutCart(customerId: number, paymentId: number): Observable<OrderDto> {
-    // Setzt den Request-Parameter (?paymentId=...)
     const params = new HttpParams().set('paymentId', paymentId.toString());
-
-    // Der eigentliche POST-Request
-    // 1. Parameter: Die URL inklusive PathVariable
-    // 2. Parameter: null (da kein @RequestBody im Backend erwartet wird)
-    // 3. Parameter: Das Options-Objekt mit den Query-Parametern
     return this.http.post<OrderDto>(
       `${this.apiUrl}/checkout/${customerId}`, 
       null, 

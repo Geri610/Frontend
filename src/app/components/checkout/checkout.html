@@ -18,7 +18,6 @@
     @if (customer) {
       <div class="checkout-grid">
         
-        <!-- LINKER BEREICH: KUNDENDATEN -->
         <div class="checkout-section customer-card">
           <h3>📍 Liefer- & Rechnungsadresse</h3>
           <hr />
@@ -28,7 +27,6 @@
           </div>
         </div>
 
-        <!-- RECHTER BEREICH: ZAHLUNGSMETHODEN -->
         <div class="checkout-section payment-card">
           <h3>💳 Zahlungsmethode auswählen</h3>
           <hr />
@@ -42,7 +40,6 @@
                   [(ngModel)]="selectedPayment" 
                   name="paymentMethodGroup"
                 />
-                <!-- Zeigt den Providernamen an, z.B. "Visa", "PayPal", "Rechnung" -->
                 <span class="method-name">{{ method.provider }}</span>
               </label>
             } @empty {
@@ -50,12 +47,10 @@
             }
           </div>
 
-          <!-- DYNAMISCHE DETAILS AUS DEM DATA-STRING -->
           @if (selectedPayment && selectedPayment.data) {
             <div class="dynamic-payment-details">
               <div class="payment-sub-box">
                 <h4>Details zu {{ selectedPayment.provider }}</h4>
-                <!-- Gibt flexibel die hinterlegten Kontodaten aus -->
                 <p><strong>Konto / Info:</strong> {{ selectedPayment.data }}</p>
               </div>
             </div>
@@ -64,7 +59,6 @@
 
       </div>
 
-      <!-- AKTIONEN -->
       <div class="checkout-actions">
         <button class="btn-cancel" (click)="router.navigate(['/cart'])">Zurück zum Warenkorb</button>
         <button class="btn-submit-order" [disabled]="!selectedPayment" (click)="onPlaceOrder()">

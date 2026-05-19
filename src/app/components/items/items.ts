@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'; // OnInit hinzugefügt
+import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../../services/item.service';
-import { CartService } from '../../services/cart.service'; // <-- NEU
-import { AuthService } from '../../services/auth.service'; // <-- NEU
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { ItemDto } from '../../shared/ItemDto';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +17,6 @@ export class Items implements OnInit {
   searchTerm: string = '';
   loading: boolean = false;
   
-  // 1. Services im Konstruktor ergänzen
   constructor(
     private itemService: ItemService,
     private cartService: CartService,
@@ -28,9 +27,7 @@ export class Items implements OnInit {
     this.loadPopular();
   }
 
-  // --- IN DEN WARENKORB HINZUFÜGEN (NEU!) ---
   addToCart(itemId: number): void {
-    // ID des aktuell eingeloggten Benutzers holen
     const customerId = this.authService.getCustomerId();
 
     if (!customerId) {
@@ -38,7 +35,6 @@ export class Items implements OnInit {
       return;
     }
 
-    // Aufruf an das Spring-Boot-Backend (POST /cart/add?customerId=X&itemId=Y)
     this.cartService.addItemToCart(customerId, itemId).subscribe({
       next: () => {
         alert('Artikel wurde erfolgreich zum Warenkorb hinzugefügt! 🛒');
@@ -50,7 +46,6 @@ export class Items implements OnInit {
     });
   }
 
-  // --- RESTLICHE METHODEN (showDetails, loadPopular, etc. bleiben exakt gleich) ---
   showDetails(id: number): void {
     this.itemService.getItemById(id).subscribe(item => {
       this.selectedItem = item;

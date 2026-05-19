@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormsModule } from '@angular/forms'; // <-- Importieren
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-anmeldung',
@@ -17,7 +17,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(): void {
-    this.errorMessage = ''; // Fehler zurücksetzen
+    this.errorMessage = '';
 
     if (!this.email || !this.password) {
       this.errorMessage = 'Bitte E-Mail und Passwort eingeben.';
@@ -26,11 +26,9 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        // Login erfolgreich -> Weiterleitung zu Items
         this.router.navigate(['/items']);
       },
       error: (err) => {
-        // Fehler vom Backend abfangen (z.B. 401 Unauthorized)
         this.errorMessage = 'Ungültige E-Mail-Adresse oder falsches Passwort.';
         console.error('Login Fehler:', err);
       }

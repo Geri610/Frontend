@@ -6,7 +6,6 @@
     color: #333;
 }
 
-/* Erfolgs-Banner oben */
 .success-header {
     text-align: center;
     margin-bottom: 40px;
@@ -42,7 +41,6 @@
     margin: 0;
 }
 
-/* Grid Layout */
 .summary-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
@@ -77,14 +75,12 @@ hr {
     margin: 15px 0;
 }
 
-/* Meta Infos */
 .meta-info p {
     margin: 10px 0;
     font-size: 1rem;
     color: #444;
 }
 
-/* Artikelliste */
 .items-list {
     display: flex;
     flex-direction: column;
@@ -130,7 +126,6 @@ hr {
     font-size: 1rem;
 }
 
-/* Rechnungs-Konto-Box rechts */
 .price-calc-row {
     display: flex;
     justify-content: space-between;
@@ -161,7 +156,6 @@ hr {
     color: #21ba45;
 }
 
-/* Aktionen ganz unten */
 .summary-actions {
     display: flex;
     justify-content: center;

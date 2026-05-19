@@ -16,34 +16,27 @@ export class ItemService {
     return of(null);
   }
 
-/** Holt ein einzelnes Item anhand der ID */
   getItemById(id: number): Observable<ItemDto> {
     return this.http.get<ItemDto>(`${this.apiUrl}/${id}`);
   }
 
-  /** Erstellt ein neues Item */
   createItem(itemDto: ItemDto): Observable<ItemDto> {
     return this.http.post<ItemDto>(this.apiUrl, itemDto);
   }
 
-  /** Aktualisiert ein bestehendes Item */
   updateItem(id: number, itemDto: ItemDto): Observable<ItemDto> {
     return this.http.put<ItemDto>(`${this.apiUrl}/${id}`, itemDto);
   }
 
-  /** Löscht ein Item */
   deleteItem(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  /** Holt die beliebtesten Items */
   getMostPopularItems(): Observable<ItemDto[]> {
     return this.http.get<ItemDto[]>(`${this.apiUrl}/popular`);
   }
 
-  /** Sucht nach Items via Query-Parameter */
-  searchItems(searchString: string): Observable<ItemDto[]> {
-    // Erzeugt ?searchString=...
+  searchItems(searchString: string): Observable<ItemDto[]> {.
     const params = new HttpParams().set('searchString', searchString);
     return this.http.get<ItemDto[]>(`${this.apiUrl}/search`, { params });
   }

@@ -7,12 +7,10 @@ import { Router } from '@angular/router'; // <-- 1. Router importieren
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/customer/login'; // Passe die URL an dein Backend an
+  private apiUrl = 'http://localhost:8080/customer/login';
   
-  // Die "globale Variable": Speichert die ID des eingeloggten Users (null = nicht eingeloggt)
   private currentCustomerIdSubject = new BehaviorSubject<number | null>(null);
   
-  // Observable, das Komponenten abonnieren können
   public currentCustomerId$ = this.currentCustomerIdSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -37,7 +35,6 @@ login(email: string, password: string): Observable<any> {
   );
 }
 
-  // Hilfsmethode, um die ID direkt im Code abzufragen (ohne Observable)
   getCustomerId(): number | null {
     return this.currentCustomerIdSubject.value;
   }

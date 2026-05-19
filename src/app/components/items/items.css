@@ -22,14 +22,12 @@
   margin-bottom: 10px;
 }
 
-/* Grid Layout */
 .item-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
 }
 
-/* Card Design */
 .item-card {
   background: white;
   border-radius: 16px;
@@ -103,7 +101,6 @@
   background: #2980b9;
 }
 
-/* Modal / Popup */
 .modal-overlay {
   position: fixed;
   top: 0;

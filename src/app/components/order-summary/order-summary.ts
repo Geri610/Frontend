@@ -14,7 +14,6 @@ export class OrderSummaryComponent implements OnInit {
   order: OrderDto | null = null;
 
   constructor(private router: Router) {
-    // Holt die mitgeschickten Daten aus dem Router-State (während der Navigation)
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state && navigation.extras.state['order']) {
       this.order = navigation.extras.state['order'];
@@ -22,8 +21,6 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Sicherheitsnetz: Wenn kein Order-Objekt existiert (z.B. durch manuellen Seiten-Refresh),
-    // leiten wir den User zurück zur Startseite.
     if (!this.order) {
       this.router.navigate(['/']);
     }
