@@ -5,6 +5,7 @@ import { CartDto } from '../shared/CartDto';
 import { CustomerDto } from '../shared/CustomerDto';
 import { PaymentMethodDto } from '../shared/PaymentMethodDto';
 import { OrderDto } from '../shared/OrderDto';
+import { CartItemDto } from '../shared/CartItemDto';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,12 @@ export class CartService {
   }
 
   // POST /cart/add?customerId=X&itemId=Y
-  addItemToCart(customerId: number, itemId: number): Observable<void> {
+  addItemToCart(customerId: number, itemId: number): Observable<CartItemDto> {
     console.log('added item id:', itemId);
     const params = new HttpParams()
       .set('customerId', customerId.toString())
       .set('itemId', itemId.toString());
-    return this.http.post<void>(`${this.apiUrl}/add`, null, { params });
+    return this.http.post<CartItemDto>(`${this.apiUrl}/add`, null, { params });
   }
 
   // DELETE /cart?customerId=X&itemId=Y
