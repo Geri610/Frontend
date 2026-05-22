@@ -27,6 +27,6 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   navigateToHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/items']);
   }
 }
